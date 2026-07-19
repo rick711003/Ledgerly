@@ -11,15 +11,21 @@ struct InsightsView: View {
 
         ScrollView {
           VStack(alignment: .leading, spacing: 22) {
+            LedgerScreenHeader(
+              title: L10n.text(.monthlyInsights),
+              detail: L10n.text(.insightsAccessibility),
+              systemName: "chart.bar.xaxis"
+            )
             MonthNavigator()
             overviewCard
             categoryBreakdown
           }
           .padding(.horizontal, 18)
+          .padding(.top, 12)
           .padding(.bottom, 28)
         }
       }
-      .navigationTitle(L10n.text(.monthlyInsights))
+      .toolbar(.hidden, for: .navigationBar)
       .accessibilityLabel(L10n.text(.insightsAccessibility))
     }
   }

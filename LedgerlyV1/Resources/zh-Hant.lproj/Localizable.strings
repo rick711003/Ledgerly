@@ -19,6 +19,7 @@
 "categories" = "分類";
 "currency" = "幣別";
 "language" = "語言";
+"languageDetail" = "選擇 Ledgerly 在整個 App 中使用的語言。";
 "systemDefault" = "系統預設";
 "english" = "英文";
 "traditionalChinese" = "繁體中文";
@@ -95,7 +96,7 @@
 "exportCSV" = "匯出 CSV";
 "clearAllData" = "清除所有資料";
 "about" = "關於";
-"aboutDetail" = "支援與隱私目的地將在發行前提供。";
+"aboutDetail" = "依照你的記帳與資料保護方式調整 Ledgerly。";
 "currencyChangeHint" = "請在第一筆交易前變更";
 "currencyLocked" = "第一筆交易後，幣別即會鎖定。";
 
@@ -125,9 +126,6 @@
 
 /* 隱私 */
 "privacyTitle" = "資料與隱私";
-"privacyBody1" = "Ledgerly 可離線使用，沒有帳號，也不會將交易資料收集到裝置外。";
-"privacyBody2" = "匯出是刻意的行為。當您分享 CSV 時，您選擇的目的地會控制該副本。";
-"privacyBody3" = "備份行為取決於您的裝置設定，且必須在發行前確認。";
 
 /* CSV 匯出 */
 "preparingCSV" = "正在準備 CSV";
@@ -139,8 +137,8 @@
 /* 清除資料 */
 "clearTitle" = "要清除所有資料嗎？";
 "finalConfirmation" = "最終確認";
-"clearBody" = "這會永久移除裝置上所有 Ledgerly v1 的交易與分類。若想保留副本，請先匯出 CSV。";
-"clearFinalBody" = "輸入 DELETE 以永久清除此 Ledgerly v1 帳本。您將回到設定流程。";
+"clearBody" = "這會永久移除此裝置上所有 Ledgerly 交易與分類。若想保留副本，請先匯出 CSV。";
+"clearFinalBody" = "輸入 DELETE 以永久清除此 Ledgerly 帳本，接著會回到初始設定流程。";
 "deleteConfirmationPlaceholder" = "輸入 DELETE";
 "clearing" = "正在清除…";
 "continueConfirmation" = "繼續確認";
@@ -199,7 +197,7 @@
 "restoreMessage" = "它將可用於新的交易。";
 "privacyBodyOne" = "Ledgerly 離線運作、沒有帳號，也不會收集裝置外的交易資料。";
 "privacyBodyTwo" = "匯出是刻意的操作。分享 CSV 時，你選擇的目的地會控制該副本。";
-"privacyBodyThree" = "備份行為取決於裝置設定，且必須在發行前確認。";
+"privacyBodyThree" = "Ledgerly 沒有獨立的雲端備份；App 資料是否包含在裝置備份中，取決於你的裝置設定。";
 "csvDescription" = "包含所有交易的 UTF-8 檔案。是否分享由你決定。";
 "csvFailed" = "CSV 未建立。你的帳本沒有變更。儲存空間可用時請重試。";
 "typeDelete" = "輸入 DELETE";
@@ -217,3 +215,6 @@
 "aboutVersion" = "Ledgerly 1.0";
 "cleared" = "帳本已清除。";
 "retryClear" = "重試清除";
+"monthlyOverview" = "每月概覽";
+"privacySummary" = "帳本資料只會保存在這台裝置上。";
+"clearSummary" = "永久移除這台裝置上的帳本資料。";

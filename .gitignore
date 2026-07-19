@@ -4,6 +4,8 @@
 .xcode-cache/
 .xcode-hygiene-derived-data/
 /.derived-data-v1/
+/.derived-data-ipad/
+/.derived-data-design/
 /.xcode-qa-cache/
 /.qa-derived-data/
 /.qa-run-*/

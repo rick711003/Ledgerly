@@ -19,6 +19,7 @@
 "categories" = "Categories";
 "currency" = "Currency";
 "language" = "Language";
+"languageDetail" = "Choose the language Ledgerly uses throughout the app.";
 "systemDefault" = "System Default";
 "english" = "English";
 "traditionalChinese" = "Traditional Chinese";
@@ -95,7 +96,7 @@
 "exportCSV" = "Export CSV";
 "clearAllData" = "Clear all data";
 "about" = "About";
-"aboutDetail" = "Support and privacy destinations will be supplied before release.";
+"aboutDetail" = "Shape Ledgerly around the way you record and protect your money.";
 "currencyChangeHint" = "Change before the first transaction";
 "currencyLocked" = "Currency is locked after the first transaction.";
 
@@ -125,9 +126,6 @@
 
 /* Privacy */
 "privacyTitle" = "Data & privacy";
-"privacyBody1" = "Ledgerly works offline, has no account, and does not collect transaction data off-device.";
-"privacyBody2" = "Exports are intentional. When you share a CSV, the destination you select controls that copy.";
-"privacyBody3" = "Backup behavior depends on your device settings and must be confirmed before release.";
 
 /* CSV export */
 "preparingCSV" = "Preparing CSV";
@@ -139,8 +137,8 @@
 /* Data deletion */
 "clearTitle" = "Clear all data?";
 "finalConfirmation" = "Final confirmation";
-"clearBody" = "This permanently removes all Ledgerly v1 transactions and categories from this device. Export a CSV first if you want a copy.";
-"clearFinalBody" = "Type DELETE to permanently clear this Ledgerly v1 ledger. You’ll return to setup.";
+"clearBody" = "This permanently removes all Ledgerly transactions and categories from this device. Export a CSV first if you want a copy.";
+"clearFinalBody" = "Type DELETE to permanently clear this Ledgerly ledger. You’ll return to setup.";
 "deleteConfirmationPlaceholder" = "Type DELETE";
 "clearing" = "Clearing…";
 "continueConfirmation" = "Continue to confirmation";
@@ -199,7 +197,7 @@
 "restoreMessage" = "It will be available for new transactions.";
 "privacyBodyOne" = "Ledgerly works offline, has no account, and does not collect transaction data off-device.";
 "privacyBodyTwo" = "Exports are intentional. When you share a CSV, the destination you select controls that copy.";
-"privacyBodyThree" = "Backup behavior depends on your device settings and must be confirmed before release.";
+"privacyBodyThree" = "Ledgerly has no separate cloud backup. Whether app data is included in a device backup depends on your device settings.";
 "csvDescription" = "A UTF-8 file with all transactions. Sharing is your choice.";
 "csvFailed" = "CSV wasn’t created. Your ledger is unchanged. Retry when storage is available.";
 "typeDelete" = "Type DELETE";
@@ -217,3 +215,6 @@
 "aboutVersion" = "Ledgerly 1.0";
 "cleared" = "Ledger cleared.";
 "retryClear" = "Retry clear";
+"monthlyOverview" = "Monthly overview";
+"privacySummary" = "Your ledger stays private on this device.";
+"clearSummary" = "Permanently remove this ledger from the device.";

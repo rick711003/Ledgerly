@@ -1,15 +1,16 @@
 import SwiftUI
 
 enum LedgerTheme {
-  static let ivory = Color(red: 246 / 255, green: 241 / 255, blue: 233 / 255)
-  static let paper = Color(red: 255 / 255, green: 252 / 255, blue: 246 / 255)
-  static let navy = Color(red: 36 / 255, green: 61 / 255, blue: 75 / 255)
-  static let ink = Color(red: 28 / 255, green: 42 / 255, blue: 48 / 255)
-  static let terracotta = Color(red: 200 / 255, green: 117 / 255, blue: 90 / 255)
-  static let sage = Color(red: 53 / 255, green: 105 / 255, blue: 88 / 255)
-  static let olive = Color(red: 116 / 255, green: 112 / 255, blue: 77 / 255)
-  static let hairline = navy.opacity(0.10)
-  static let cardShadow = navy.opacity(0.10)
+  static let ivory = Color(red: 246 / 255, green: 243 / 255, blue: 237 / 255)
+  static let paper = Color(red: 253 / 255, green: 251 / 255, blue: 247 / 255)
+  static let navy = Color(red: 28 / 255, green: 51 / 255, blue: 61 / 255)
+  static let ink = Color(red: 25 / 255, green: 38 / 255, blue: 43 / 255)
+  static let terracotta = Color(red: 191 / 255, green: 101 / 255, blue: 72 / 255)
+  static let sage = Color(red: 49 / 255, green: 101 / 255, blue: 82 / 255)
+  static let olive = Color(red: 112 / 255, green: 105 / 255, blue: 69 / 255)
+  static let mutedInk = ink.opacity(0.58)
+  static let hairline = navy.opacity(0.085)
+  static let cardShadow = navy.opacity(0.065)
 }
 
 /// Design-owned semantic type roles. Product views must use these tokens instead of
@@ -36,25 +37,27 @@ struct LedgerBackground: View {
   var body: some View {
     ZStack {
       LinearGradient(
-        colors: [LedgerTheme.paper, LedgerTheme.ivory],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
+        colors: [LedgerTheme.paper, LedgerTheme.ivory.opacity(0.94)],
+        startPoint: .top,
+        endPoint: .bottom
       )
 
       if showsArtwork {
         Image("Ledgerly-Journal-Background-v1")
           .resizable()
           .scaledToFill()
-          .opacity(0.18)
+          .opacity(0.08)
           .blendMode(.multiply)
       }
 
-      Circle()
-        .fill(LedgerTheme.terracotta.opacity(0.08))
-        .frame(width: 280, height: 280)
-        .blur(radius: 28)
-        .offset(x: 150, y: -300)
+      LinearGradient(
+        colors: [LedgerTheme.terracotta.opacity(0.035), .clear],
+        startPoint: .topTrailing,
+        endPoint: .center
+      )
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .clipped()
     .ignoresSafeArea()
     .accessibilityHidden(true)
   }
@@ -75,13 +78,13 @@ struct LedgerCard: ViewModifier {
   func body(content: Content) -> some View {
     content
       .padding(padding)
-      .background(LedgerTheme.paper.opacity(0.96))
-      .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+      .background(LedgerTheme.paper)
+      .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
       .overlay {
-        RoundedRectangle(cornerRadius: 22, style: .continuous)
+        RoundedRectangle(cornerRadius: 18, style: .continuous)
           .stroke(LedgerTheme.hairline, lineWidth: 1)
       }
-      .shadow(color: LedgerTheme.cardShadow, radius: 18, y: 8)
+      .shadow(color: LedgerTheme.cardShadow, radius: 10, y: 4)
   }
 }
 
@@ -99,7 +102,7 @@ struct PrimaryButton: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .font(LedgerTypography.action)
-      .frame(maxWidth: .infinity, minHeight: 52)
+      .frame(maxWidth: .infinity, minHeight: 50)
       .background(
         LinearGradient(
           colors: [LedgerTheme.navy, LedgerTheme.navy.opacity(0.88)],
@@ -108,9 +111,9 @@ struct PrimaryButton: ButtonStyle {
         )
       )
       .foregroundStyle(.white)
-      .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+      .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
       .shadow(
-        color: LedgerTheme.navy.opacity(configuration.isPressed ? 0.08 : 0.22), radius: 12, y: 6
+        color: LedgerTheme.navy.opacity(configuration.isPressed ? 0.05 : 0.14), radius: 8, y: 4
       )
       .scaleEffect(configuration.isPressed ? 0.985 : 1)
       .animation(.easeOut(duration: 0.16), value: configuration.isPressed)
@@ -125,9 +128,9 @@ struct LedgerIcon: View {
     Image(systemName: systemName)
       .font(LedgerTypography.icon)
       .foregroundStyle(color)
-      .frame(width: 36, height: 36)
+      .frame(width: 34, height: 34)
       .background(color.opacity(0.12))
-      .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+      .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
   }
 }
 
@@ -146,6 +149,35 @@ struct LedgerSectionTitle: View {
           .font(LedgerTypography.body)
           .foregroundStyle(.secondary)
       }
+    }
+  }
+}
+
+struct LedgerScreenHeader: View {
+  let title: String
+  let detail: String
+  var systemName: String
+
+  var body: some View {
+    HStack(alignment: .center, spacing: 14) {
+      VStack(alignment: .leading, spacing: 4) {
+        Text(title)
+          .font(LedgerTypography.screenTitle)
+          .foregroundStyle(LedgerTheme.ink)
+        Text(detail)
+          .font(LedgerTypography.footnote)
+          .foregroundStyle(LedgerTheme.mutedInk)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+
+      Spacer(minLength: 12)
+
+      Image(systemName: systemName)
+        .font(.body.weight(.semibold))
+        .foregroundStyle(LedgerTheme.navy)
+        .frame(width: 42, height: 42)
+        .background(LedgerTheme.navy.opacity(0.07))
+        .clipShape(Circle())
     }
   }
 }

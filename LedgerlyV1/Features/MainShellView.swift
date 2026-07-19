@@ -70,16 +70,28 @@ struct MainShellView: View {
   var body: some View {
     TabView {
       HomeView(showAdd: $addPresented)
-        .tabItem { Label(L10n.text(.home), systemImage: "house.fill") }
+        .tabItem {
+          Label(L10n.text(.home), systemImage: "house.fill")
+            .accessibilityIdentifier("tab.home")
+        }
 
       HistoryView()
-        .tabItem { Label(L10n.text(.history), systemImage: "list.bullet.rectangle") }
+        .tabItem {
+          Label(L10n.text(.history), systemImage: "list.bullet.rectangle")
+            .accessibilityIdentifier("tab.history")
+        }
 
       InsightsView()
-        .tabItem { Label(L10n.text(.insights), systemImage: "chart.bar.fill") }
+        .tabItem {
+          Label(L10n.text(.insights), systemImage: "chart.bar.fill")
+            .accessibilityIdentifier("tab.insights")
+        }
 
       SettingsView()
-        .tabItem { Label(L10n.text(.settings), systemImage: "slider.horizontal.3") }
+        .tabItem {
+          Label(L10n.text(.settings), systemImage: "slider.horizontal.3")
+            .accessibilityIdentifier("tab.settings")
+        }
     }
     .tint(LedgerTheme.terracotta)
     .toolbarBackground(LedgerTheme.paper, for: .tabBar)
@@ -95,20 +107,20 @@ struct MonthNavigator: View {
   @Environment(\.locale) private var locale
 
   var body: some View {
-    HStack(spacing: 14) {
+    HStack(spacing: 8) {
       monthButton(systemName: "chevron.left", label: .previousMonth) {
         model.moveMonth(by: -1)
       }
 
       Spacer()
 
-      VStack(spacing: 2) {
+      VStack(spacing: 1) {
         Text(label)
-          .font(.subheadline.weight(.bold))
+          .font(LedgerTypography.label)
           .foregroundStyle(LedgerTheme.navy)
-        Capsule()
-          .fill(LedgerTheme.terracotta)
-          .frame(width: 24, height: 2)
+        Text(L10n.text(.monthlyOverview))
+          .font(LedgerTypography.caption)
+          .foregroundStyle(LedgerTheme.mutedInk)
       }
       .accessibilityAddTraits(.isHeader)
 
@@ -119,11 +131,8 @@ struct MonthNavigator: View {
       }
       .disabled(isCurrentMonth)
     }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 10)
-    .background(LedgerTheme.paper.opacity(0.92))
-    .clipShape(Capsule())
-    .overlay { Capsule().stroke(LedgerTheme.hairline) }
+    .padding(.horizontal, 4)
+    .padding(.vertical, 4)
     .accessibilityElement(children: .contain)
   }
 
@@ -145,8 +154,8 @@ struct MonthNavigator: View {
     Button(action: action) {
       Image(systemName: systemName)
         .font(.caption.weight(.bold))
-        .frame(width: 30, height: 30)
-        .background(LedgerTheme.ivory)
+        .frame(width: 36, height: 36)
+        .background(LedgerTheme.navy.opacity(0.06))
         .clipShape(Circle())
     }
     .accessibilityLabel(L10n.text(label))
@@ -164,32 +173,47 @@ struct HomeView: View {
         LedgerBackground()
 
         ScrollView {
-          VStack(alignment: .leading, spacing: 22) {
+          VStack(alignment: .leading, spacing: 20) {
+            brandHeader
             MonthNavigator()
             balanceHero
             metrics
             recentSection
           }
           .padding(.horizontal, 18)
+          .padding(.top, 12)
           .padding(.bottom, 28)
         }
       }
-      .navigationTitle(L10n.text(.appName))
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button {
-            showAdd = true
-          } label: {
-            Image(systemName: "plus")
-              .font(.headline)
-              .foregroundStyle(.white)
-              .frame(width: 36, height: 36)
-              .background(LedgerTheme.terracotta)
-              .clipShape(Circle())
-          }
-          .accessibilityLabel(L10n.text(.addTransaction))
-        }
+      .toolbar(.hidden, for: .navigationBar)
+    }
+  }
+
+  private var brandHeader: some View {
+    HStack(alignment: .center) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(L10n.text(.appName))
+          .font(LedgerTypography.screenTitle)
+          .foregroundStyle(LedgerTheme.ink)
+        Text(Date.now.formatted(.dateTime.locale(locale).weekday(.wide).day().month(.wide)))
+          .font(LedgerTypography.caption)
+          .foregroundStyle(LedgerTheme.mutedInk)
       }
+
+      Spacer()
+
+      Button {
+        showAdd = true
+      } label: {
+        Image(systemName: "plus")
+          .font(.body.weight(.semibold))
+          .foregroundStyle(.white)
+          .frame(width: 42, height: 42)
+          .background(LedgerTheme.terracotta)
+          .clipShape(Circle())
+          .shadow(color: LedgerTheme.terracotta.opacity(0.2), radius: 7, y: 3)
+      }
+      .accessibilityLabel(L10n.text(.addTransaction))
     }
   }
 
@@ -202,7 +226,7 @@ struct HomeView: View {
   }
 
   private var balanceHero: some View {
-    VStack(alignment: .leading, spacing: 22) {
+    VStack(alignment: .leading, spacing: 20) {
       HStack {
         Label(L10n.text(.netLabel), systemImage: "wallet.bifold.fill")
           .font(.caption.weight(.semibold))
@@ -227,7 +251,7 @@ struct HomeView: View {
       .font(.subheadline)
       .foregroundStyle(.white.opacity(0.72))
     }
-    .padding(22)
+    .padding(20)
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(
       LinearGradient(
@@ -236,14 +260,14 @@ struct HomeView: View {
         endPoint: .bottomTrailing
       )
     )
-    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
+    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     .overlay(alignment: .bottomTrailing) {
-      Circle()
-        .fill(LedgerTheme.terracotta.opacity(0.18))
-        .frame(width: 130, height: 130)
-        .offset(x: 35, y: 55)
+      Image(systemName: "circle.grid.2x2.fill")
+        .font(.system(size: 72))
+        .foregroundStyle(.white.opacity(0.035))
+        .padding(18)
     }
-    .shadow(color: LedgerTheme.navy.opacity(0.22), radius: 20, y: 10)
+    .shadow(color: LedgerTheme.navy.opacity(0.15), radius: 14, y: 7)
   }
 
   private var metrics: some View {
@@ -260,20 +284,23 @@ struct HomeView: View {
       LedgerSectionTitle(title: L10n.text(.recentActivity))
 
       if recent.isEmpty {
-        VStack(spacing: 14) {
+        HStack(alignment: .top, spacing: 14) {
           LedgerIcon(systemName: "book.closed", color: LedgerTheme.olive)
-          Text(L10n.text(.nothingRecorded))
-            .font(.headline)
-          Text(L10n.text(.nothingRecordedDescription))
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.center)
-          Button(L10n.text(.addTransaction)) {
-            showAdd = true
+          VStack(alignment: .leading, spacing: 7) {
+            Text(L10n.text(.nothingRecorded))
+              .font(LedgerTypography.bodyStrong)
+            Text(L10n.text(.nothingRecordedDescription))
+              .font(LedgerTypography.footnote)
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+            Button(L10n.text(.addTransaction)) {
+              showAdd = true
+            }
+            .font(LedgerTypography.label)
+            .foregroundStyle(LedgerTheme.terracotta)
           }
-          .buttonStyle(PrimaryButton())
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .ledgerCard()
       } else {
         VStack(spacing: 0) {

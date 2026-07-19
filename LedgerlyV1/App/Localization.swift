@@ -25,7 +25,8 @@ enum L10n {
   enum Key: String {
     case appName, ok, cancel, done, save, saving, add, continueAction, retry, retrySetup,
       retryDelete, retryClear, retryOpening
-    case home, history, insights, settings, categories, currency, language, systemDefault, english,
+    case home, history, insights, settings, categories, currency, language, languageDetail,
+      systemDefault, english,
       traditionalChinese
     case onboardingTitleOne, onboardingBodyOne, onboardingTitleTwo, onboardingBodyTwo,
       onboardingTitleThree, onboardingBodyThree, createLedger, savingSetup
@@ -36,10 +37,11 @@ enum L10n {
     case noTransactions, transactionsDescription, transaction, editTransactionAction,
       deleteTransaction, deleting, deleteTransactionTitle, deletePermanently,
       deleteTransactionMessage
-    case previousMonth, nextMonth, monthSummaryTitle, recentActivity, incomeLabel, expensesLabel,
+    case previousMonth, nextMonth, monthlyOverview, monthSummaryTitle, recentActivity, incomeLabel, expensesLabel,
       netLabel, nothingRecorded, nothingRecordedDescription
     case monthlyTotals, expensesByCategory, noExpenseData, monthlyInsights, insightsAccessibility
-    case dataPrivacy, exportCSV, clearAllData, about, aboutDetail, aboutVersion, changeCurrencyHint,
+    case dataPrivacy, privacySummary, exportCSV, clearAllData, clearSummary, about, aboutDetail, aboutVersion,
+      changeCurrencyHint,
       currencyLockedHint
     case status, active, archived, noArchivedCategories, noActiveCategories, archivedDescription,
       builtIn, custom, restore, archive, archiveTitle, restoreTitle, archiveMessage, restoreMessage,

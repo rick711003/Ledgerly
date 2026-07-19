@@ -17,58 +17,46 @@ struct TransactionEditorView: View {
 
   var body: some View {
     NavigationStack {
-      ZStack {
-        LedgerBackground()
+      ScrollView {
+        VStack(spacing: 18) {
+          amountCard
+          detailsCard
 
-        ScrollView {
-          VStack(spacing: 18) {
-            amountCard
-            detailsCard
-
-            if let error {
-              Label(error, systemImage: "exclamationmark.circle.fill")
-                .font(.footnote)
-                .foregroundStyle(.red)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .ledgerCard(padding: 14)
-                .accessibilityAddTraits(.isStaticText)
-                .focused($errorFocused)
-            }
-
-            Button(action: save) {
-              HStack {
-                Text(L10n.text(model.isSaving ? .saving : saveTitle))
-                Spacer()
-                Image(systemName: "checkmark.circle.fill")
-              }
-              .padding(.horizontal, 18)
-            }
-            .buttonStyle(PrimaryButton())
-            .disabled(model.isSaving)
-            .accessibilityIdentifier("transaction.save")
+          if let error {
+            Label(error, systemImage: "exclamationmark.circle.fill")
+              .font(.footnote)
+              .foregroundStyle(.red)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .ledgerCard(padding: 14)
+              .accessibilityAddTraits(.isStaticText)
+              .focused($errorFocused)
           }
-          .padding(.horizontal, 18)
-          .padding(.bottom, 30)
+
+          Button(action: save) {
+            HStack {
+              Text(L10n.text(model.isSaving ? .saving : saveTitle))
+              Spacer()
+              Image(systemName: "checkmark.circle.fill")
+            }
+            .padding(.horizontal, 18)
+          }
+          .buttonStyle(PrimaryButton())
+          .disabled(model.isSaving)
+          .accessibilityIdentifier("transaction.save")
         }
+        .padding(.horizontal, 18)
+        .padding(.top, 8)
+        .padding(.bottom, 30)
       }
+      .background { LedgerBackground() }
       .accessibilityIdentifier("transaction.editor.screen")
       .navigationTitle(L10n.text(existing == nil ? .addTransaction : .editTransaction))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
-          Button {
-            dismiss()
-          } label: {
-            Image(systemName: "xmark")
-              .font(.caption.weight(.bold))
-              .foregroundStyle(LedgerTheme.navy)
-              .frame(width: 32, height: 32)
-              .background(LedgerTheme.paper)
-              .clipShape(Circle())
-              .overlay { Circle().stroke(LedgerTheme.hairline) }
-          }
-          .disabled(model.isSaving)
-          .accessibilityLabel(L10n.text(.cancel))
+          Button(L10n.text(.cancel)) { dismiss() }
+            .foregroundStyle(LedgerTheme.navy)
+            .disabled(model.isSaving)
         }
       }
     }
@@ -77,7 +65,7 @@ struct TransactionEditorView: View {
   }
 
   private var amountCard: some View {
-    VStack(spacing: 24) {
+    VStack(spacing: 20) {
       HStack(spacing: 10) {
         kindButton(.expense, icon: "arrow.up.right")
         kindButton(.income, icon: "arrow.down.left")
@@ -117,7 +105,7 @@ struct TransactionEditorView: View {
           .frame(height: 2)
       }
     }
-    .ledgerCard(padding: 20)
+    .ledgerCard(padding: 18)
   }
 
   private var kindColor: Color {
@@ -281,11 +269,12 @@ struct HistoryView: View {
 
         ScrollView {
           VStack(alignment: .leading, spacing: 22) {
-            MonthNavigator()
-            LedgerSectionTitle(
+            LedgerScreenHeader(
               title: L10n.text(.history),
-              detail: L10n.text(.transactionsDescription)
+              detail: L10n.text(.transactionsDescription),
+              systemName: "clock.arrow.circlepath"
             )
+            MonthNavigator()
 
             if records.isEmpty {
               emptyState
@@ -294,11 +283,12 @@ struct HistoryView: View {
             }
           }
           .padding(.horizontal, 18)
+          .padding(.top, 12)
           .padding(.bottom, 28)
         }
       }
       .accessibilityIdentifier("history.screen")
-      .navigationTitle(L10n.text(.history))
+      .toolbar(.hidden, for: .navigationBar)
       .sheet(item: $selected) { TransactionDetailView(transaction: $0) }
     }
   }
