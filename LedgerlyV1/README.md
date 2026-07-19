@@ -21,6 +21,7 @@ Before a build, validate the project mapping from the repository root:
 
 ```sh
 LedgerlyV1/Scripts/check-source-map.sh
+LedgerlyV1/Scripts/check-format.sh
 cd LedgerlyV1 && swift test
 ```
 
@@ -31,9 +32,8 @@ Tools) for the `xcodebuild` command above.
 
 ## Resources and excluded artifacts
 
-`Resources/` contains the explicit app Info.plist, launch storyboard, and an
-`Assets.xcassets` catalog with an `AppIcon` placeholder set. A production icon
-asset is still required before release; this remediation does not release the app.
+`Resources/` contains the explicit app Info.plist, launch storyboard, branded
+background artwork, and an `Assets.xcassets` catalog with the Ledgerly AppIcon.
 
 `ExcludedArtifacts/LegacyCompetingImplementation/` retains the previous nested
 implementation for recovery only. It is deliberately excluded from Xcode targets
