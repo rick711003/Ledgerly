@@ -1,0 +1,16 @@
+.DS_Store
+.build/
+.derived-data/
+.xcode-cache/
+.xcode-hygiene-derived-data/
+/.derived-data-v1/
+/.xcode-qa-cache/
+/.qa-derived-data/
+/.qa-run-*/
+/.company-orchestrator/
+/.design-agent/
+LedgerlyV1/.swift-package-build/
+LedgerlyV1/.swift-module-cache/
+.ios-agent/
+.product-manager-agent/
+.qa-agent/

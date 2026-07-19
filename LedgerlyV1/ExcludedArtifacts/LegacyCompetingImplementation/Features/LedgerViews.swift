@@ -1,0 +1,39 @@
+import SwiftUI
+import UniformTypeIdentifiers
+
+struct OnboardingView: View {
+    @ObservedObject var model: AppModel; @State private var step = 0; @State private var currency = Locale.current.currency?.identifier ?? "USD"; @State private var error: String?
+    var body: some View { VStack(alignment: .leading, spacing: 22) {
+        Spacer()
+        if step == 0 { Text("LEDGERLY").font(.caption.bold()).foregroundStyle(LedgerTheme.clay); Text("A quieter way to know your month.").editorialTitle(); Text("Record what matters. See a clear monthly picture."); Button("Get started") { step = 1 }.buttonStyle(PrimaryButton()) }
+        else if step == 1 { Text("Private by default").editorialTitle(); Text("Ledgerly works offline and has no account. Your entries are stored in the app’s private storage."); Notice(text: "Export is your choice. A shared CSV is controlled by the destination you choose."); Button("Continue") { step = 2 }.buttonStyle(PrimaryButton()) }
+        else { Text("Choose your currency").editorialTitle(); Text("Suggested for your region. You can change this until you add your first transaction."); TextField("Currency code", text: $currency).textInputAutocapitalization(.characters).textFieldStyle(.roundedBorder).accessibilityHint("Three letter ISO currency code")
+            if let error { Notice(text: error, error: true) }; Button("Use \(currency.uppercased())") { Task { do { try await model.setup(currency: currency) } catch { self.error = error.localizedDescription } } }.buttonStyle(PrimaryButton()) }
+        Spacer()
+    }.padding().background(LedgerTheme.paper).accessibilityElement(children: .contain) }
+}
+
+struct MainTabs: View {
+    @ObservedObject var model: AppModel; @State private var month = Date(); @State private var showingAdd = false
+    var body: some View { TabView { HomeView(model: model, month: $month, showingAdd: $showingAdd).tabItem { Label("Home", systemImage: "house") }; HistoryView(model: model, month: $month).tabItem { Label("History", systemImage: "list.bullet") }; InsightsView(ledger: model.ledger!, month: $month).tabItem { Label("Insights", systemImage: "chart.pie") }; SettingsView(model: model).tabItem { Label("Settings", systemImage: "gearshape") } }.tint(LedgerTheme.navy).sheet(isPresented: $showingAdd) { EntryEditor(model: model) } }
+}
+
+struct MonthHeader: View { @Binding var month: Date; private let formatter: DateFormatter = { let f = DateFormatter(); f.dateFormat = "MMMM yyyy"; return f }(); var body: some View { HStack { Button("Previous month") { month = Calendar.current.date(byAdding: .month, value: -1, to: month)! }.labelStyle(.iconOnly).overlay(Image(systemName: "chevron.left")); Spacer(); Text(formatter.string(from: month)).font(.caption.bold()).accessibilityLabel("Showing \(formatter.string(from: month))"); Spacer(); Button("Next month") { month = Calendar.current.date(byAdding: .month, value: 1, to: month)! }.labelStyle(.iconOnly).overlay(Image(systemName: "chevron.right")) }.frame(minHeight: 44) } }
+
+struct HomeView: View { @ObservedObject var model: AppModel; @Binding var month: Date; @Binding var showingAdd: Bool
+    var body: some View { let ledger = model.ledger!; let summary = ledger.summary(for: month); ScrollView { VStack(alignment: .leading, spacing: 16) { MonthHeader(month: $month); Text("This month, clearly.").editorialTitle(); VStack(alignment: .leading) { Text("NET").font(.caption.bold()); Text(money(summary.net, ledger.currencyCode)).font(.system(size: 34, weight: .bold, design: .serif)); HStack { Label(money(summary.income, ledger.currencyCode), systemImage: "arrow.down.left").foregroundStyle(LedgerTheme.sage); Spacer(); Label(money(-summary.expenses, ledger.currencyCode), systemImage: "arrow.up.right").foregroundStyle(LedgerTheme.clay) } }.padding().background(LedgerTheme.clay.opacity(0.15)).clipShape(RoundedRectangle(cornerRadius: 20)).accessibilityLabel("Net \(money(summary.net, ledger.currencyCode)). Income \(money(summary.income, ledger.currencyCode)). Expenses \(money(-summary.expenses, ledger.currencyCode))")
+            let recent = ledger.entries.filter { Calendar.current.isDate($0.occurredOn, equalTo: month, toGranularity: .month) }.sorted { $0.occurredOn > $1.occurredOn }.prefix(5)
+            if recent.isEmpty { ContentUnavailableView("Nothing recorded yet", systemImage: "book.closed", description: Text("Add an expense or income to begin your monthly view.")) } else { Text("Recent activity").font(.headline); ForEach(recent) { EntryRow(entry: $0, ledger: ledger) } }
+            Button("Add transaction") { showingAdd = true }.buttonStyle(PrimaryButton())
+        }.padding() }.background(LedgerTheme.paper) }
+}
+
+struct HistoryView: View { @ObservedObject var model: AppModel; @Binding var month: Date; @State private var selected: LedgerEntry?
+    var body: some View { let ledger = model.ledger!; let entries = ledger.entries.filter { Calendar.current.isDate($0.occurredOn, equalTo: month, toGranularity: .month) }.sorted { $0.occurredOn > $1.occurredOn }; NavigationStack { List { MonthHeader(month: $month).listRowBackground(Color.clear); if entries.isEmpty { ContentUnavailableView("No activity this month", systemImage: "calendar", description: Text("Add an entry dated in this month to see it here.")) } else { ForEach(entries) { entry in Button { selected = entry } label: { EntryRow(entry: entry, ledger: ledger) } } } }.scrollContentBackground(.hidden).navigationTitle("History").sheet(item: $selected) { DetailView(model: model, entry: $0) } }.background(LedgerTheme.paper) }
+}
+
+struct EntryRow: View { let entry: LedgerEntry; let ledger: Ledger; var body: some View { HStack { VStack(alignment: .leading) { Text(ledger.category(for: entry.categoryID)?.name ?? "Unknown").fontWeight(.semibold); Text(entry.note.isEmpty ? entry.occurredOn.formatted(date: .abbreviated, time: .omitted) : entry.note).font(.caption).foregroundStyle(.secondary) }; Spacer(); Text((entry.type == .income ? "+" : "−") + money(entry.amountMinor, ledger.currencyCode)).foregroundStyle(entry.type == .income ? LedgerTheme.sage : LedgerTheme.clay).accessibilityLabel("\(entry.type.rawValue), \(money(entry.amountMinor, ledger.currencyCode))") }.padding(.vertical, 4) } }
+
+struct InsightsView: View { let ledger: Ledger; @Binding var month: Date; var body: some View { let summary = ledger.summary(for: month); let entries = ledger.entries.filter { $0.type == .expense && Calendar.current.isDate($0.occurredOn, equalTo: month, toGranularity: .month) }; let groups = Dictionary(grouping: entries, by: \.categoryID).map { ($0.key, $0.value.reduce(0) { $0 + $1.amountMinor }) }.sorted { $0.1 > $1.1 }; ScrollView { VStack(alignment: .leading, spacing: 16) { MonthHeader(month: $month); Text("Your month at a glance").editorialTitle(); Text("Income \(money(summary.income, ledger.currencyCode)) · Expenses \(money(summary.expenses, ledger.currencyCode)) · Net \(money(summary.net, ledger.currencyCode))"); if groups.isEmpty { ContentUnavailableView("No expenses this month", systemImage: "chart.pie", description: Text("Category totals will appear after you record an expense.")) } else { Text("Expense breakdown").font(.headline); ForEach(groups, id: \.0) { categoryID, amount in HStack { Text(ledger.category(for: categoryID)?.name ?? "Unknown"); Spacer(); Text(money(amount, ledger.currencyCode)); Text("\(Int(Double(amount) / Double(summary.expenses) * 100))%") }.accessibilityLabel("\(ledger.category(for: categoryID)?.name ?? "Unknown"), \(money(amount, ledger.currencyCode)), \(Int(Double(amount) / Double(summary.expenses) * 100)) percent") } } }.padding() }.background(LedgerTheme.paper) } }
+
+private func money(_ amount: Int, _ code: String) -> String { let f = NumberFormatter(); f.numberStyle = .currency; f.currencyCode = code; return f.string(from: NSNumber(value: Double(amount) / 100)) ?? "\(amount)" }
