@@ -12,43 +12,103 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    Button(L10n.text(.categories)) {
-                        categories = true
-                    }
+            ZStack {
+                LedgerBackground()
 
-                    Button(L10n.text(.currency)) {
-                        currency = true
-                    }
-                    .accessibilityHint(L10n.text(model.ledger.transactions.isEmpty ? .changeCurrencyHint : .currencyLockedHint))
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 24) {
+                        settingsGroup(title: L10n.text(.settings)) {
+                            SettingsRow(
+                                title: L10n.text(.categories),
+                                detail: L10n.text(.archivedDescription),
+                                systemName: "tag.fill",
+                                color: LedgerTheme.terracotta
+                            ) {
+                                categories = true
+                            }
 
-                    Picker(L10n.text(.language), selection: $language) {
-                        ForEach(AppLanguage.allCases) { option in
-                            Text(option.title).tag(option.rawValue)
+                            Divider().padding(.leading, 50)
+
+                            SettingsRow(
+                                title: L10n.text(.currency),
+                                detail: model.ledger.transactions.isEmpty
+                                    ? L10n.text(.changeCurrencyHint)
+                                    : L10n.text(.currencyLockedHint),
+                                systemName: "dollarsign.circle.fill",
+                                color: LedgerTheme.sage
+                            ) {
+                                currency = true
+                            }
+                            .accessibilityHint(
+                                L10n.text(
+                                    model.ledger.transactions.isEmpty
+                                        ? .changeCurrencyHint
+                                        : .currencyLockedHint
+                                )
+                            )
+
+                            Divider().padding(.leading, 50)
+
+                            HStack(spacing: 14) {
+                                LedgerIcon(systemName: "globe", color: LedgerTheme.olive)
+                                Text(L10n.text(.language))
+                                    .font(.body.weight(.medium))
+                                Spacer()
+                                Picker(L10n.text(.language), selection: $language) {
+                                    ForEach(AppLanguage.allCases) { option in
+                                        Text(option.title).tag(option.rawValue)
+                                    }
+                                }
+                                .labelsHidden()
+                                .accessibilityIdentifier("settings.language")
+                            }
                         }
-                    }
-                    .accessibilityIdentifier("settings.language")
-                }
 
-                Section(L10n.text(.dataPrivacy)) {
-                    Button(L10n.text(.exportCSV)) {
-                        exporting = true
-                    }
+                        settingsGroup(title: L10n.text(.dataPrivacy)) {
+                            SettingsRow(
+                                title: L10n.text(.exportCSV),
+                                systemName: "square.and.arrow.up.fill",
+                                color: LedgerTheme.sage
+                            ) {
+                                exporting = true
+                            }
 
-                    Button(L10n.text(.dataPrivacy)) {
-                        privacy = true
-                    }
+                            Divider().padding(.leading, 50)
 
-                    Button(L10n.text(.clearAllData), role: .destructive) {
-                        clearing = true
-                    }
-                }
+                            SettingsRow(
+                                title: L10n.text(.dataPrivacy),
+                                systemName: "lock.shield.fill",
+                                color: LedgerTheme.navy
+                            ) {
+                                privacy = true
+                            }
 
-                Section(L10n.text(.about)) {
-                    Text(L10n.text(.aboutVersion))
-                    Text(L10n.text(.aboutDetail))
-                        .font(.footnote)
+                            Divider().padding(.leading, 50)
+
+                            SettingsRow(
+                                title: L10n.text(.clearAllData),
+                                systemName: "trash.fill",
+                                color: LedgerTheme.terracotta,
+                                isDestructive: true
+                            ) {
+                                clearing = true
+                            }
+                        }
+
+                        VStack(alignment: .leading, spacing: 8) {
+                            Label(L10n.text(.aboutVersion), systemImage: "leaf.fill")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(LedgerTheme.sage)
+                            Text(L10n.text(.aboutDetail))
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                .lineSpacing(3)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .ledgerCard()
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.bottom, 28)
                 }
             }
             .navigationTitle(L10n.text(.settings))
@@ -58,6 +118,60 @@ struct SettingsView: View {
             .sheet(isPresented: $clearing) { ClearDataView() }
             .sheet(isPresented: $currency) { CurrencyEditorView() }
         }
+    }
+
+    private func settingsGroup<Content: View>(
+        title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title.uppercased())
+                .font(.caption.weight(.bold))
+                .tracking(1.2)
+                .foregroundStyle(LedgerTheme.navy.opacity(0.62))
+
+            VStack(spacing: 0, content: content)
+                .ledgerCard(padding: 14)
+        }
+    }
+}
+
+private struct SettingsRow: View {
+    let title: String
+    var detail: String?
+    let systemName: String
+    let color: Color
+    var isDestructive = false
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 14) {
+                LedgerIcon(systemName: systemName, color: color)
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title)
+                        .font(.body.weight(.medium))
+                        .foregroundStyle(isDestructive ? Color.red : LedgerTheme.ink)
+
+                    if let detail {
+                        Text(detail)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.tertiary)
+            }
+            .contentShape(Rectangle())
+            .padding(.vertical, 5)
+        }
+        .buttonStyle(.plain)
     }
 }
 
