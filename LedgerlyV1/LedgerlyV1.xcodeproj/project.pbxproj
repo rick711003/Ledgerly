@@ -43,27 +43,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A20000000000000000000001 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/Localization.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000002 /* LedgerlyV1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/LedgerlyV1App.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000003 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain/Ledger.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000004 /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence/LedgerStore.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000005 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem/Theme.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000006 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/InsightsView.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000007 /* MainShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/MainShellView.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000008 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/OnboardingView.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000009 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/RootView.swift; sourceTree = SOURCE_ROOT; };
-		A2000000000000000000000A /* SettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/SettingsViews.swift; sourceTree = SOURCE_ROOT; };
-		A2000000000000000000000B /* TransactionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/TransactionViews.swift; sourceTree = SOURCE_ROOT; };
-		A2000000000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		A2000000000000000000000D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Resources/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
-		A2000000000000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		A20000000000000000000001 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* LedgerlyV1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerlyV1App.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStore.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A20000000000000000000006 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		A20000000000000000000007 /* MainShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainShellView.swift; sourceTree = "<group>"; };
+		A20000000000000000000008 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		A20000000000000000000009 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A2000000000000000000000A /* SettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViews.swift; sourceTree = "<group>"; };
+		A2000000000000000000000B /* TransactionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViews.swift; sourceTree = "<group>"; };
+		A2000000000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2000000000000000000000D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A2000000000000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2000000000000000000000F /* Localizable.strings */ = {isa = PBXVariantGroup; children = (A20000000000000000000010 /* en */, A20000000000000000000011 /* zh-Hant */); name = Localizable.strings; sourceTree = "<group>"; };
-		A20000000000000000000010 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000011 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hant; path = Resources/zh-Hant.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000012 /* LedgerlyV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerlyV1Tests/LedgerlyV1Tests.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = LedgerlyV1Tests/Info.plist; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000014 /* LedgerlyV1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerlyV1UITests/LedgerlyV1UITests.swift; sourceTree = SOURCE_ROOT; };
-		A20000000000000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = LedgerlyV1UITests/Info.plist; sourceTree = SOURCE_ROOT; };
+		A20000000000000000000010 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A20000000000000000000011 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hant; path = zh-Hant.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A20000000000000000000012 /* LedgerlyV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerlyV1Tests.swift; sourceTree = "<group>"; };
+		A20000000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000000000000000000014 /* LedgerlyV1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerlyV1UITests.swift; sourceTree = "<group>"; };
+		A20000000000000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000000000000000000016 /* LedgerlyV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedgerlyV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20000000000000000000017 /* LedgerlyV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgerlyV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20000000000000000000018 /* LedgerlyV1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgerlyV1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
