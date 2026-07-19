@@ -41,5 +41,5 @@ on pre-seeded simulator data.
 
 Final evidence:
 
-- iPhone: `.derived-data-design/Logs/Test/Test-LedgerlyV1-2026.07.19_21-44-55-+0800.xcresult`
+- iPhone final completion audit: `/Users/rick/Library/Developer/Xcode/DerivedData/LedgerlyV1-ccfhueccikktqmcbqcuunmnvxrky/Logs/Test/Test-LedgerlyV1-2026.07.19_22-02-54-+0800.xcresult`
 - iPad: `.derived-data-ipad/Logs/Test/Test-LedgerlyV1-2026.07.19_21-39-32-+0800.xcresult`

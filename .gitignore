@@ -1,6 +1,7 @@
 .DS_Store
 .build/
 .derived-data/
+.derived-data*/
 .xcode-cache/
 .xcode-hygiene-derived-data/
 /.derived-data-v1/
@@ -16,3 +17,5 @@ LedgerlyV1/.swift-module-cache/
 .ios-agent/
 .product-manager-agent/
 .qa-agent/
+**/xcuserdata/
+**/*.xcuserstate
