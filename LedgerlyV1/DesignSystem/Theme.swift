@@ -12,6 +12,24 @@ enum LedgerTheme {
   static let cardShadow = navy.opacity(0.10)
 }
 
+/// Design-owned semantic type roles. Product views must use these tokens instead of
+/// inventing point sizes so Dynamic Type and visual hierarchy stay consistent.
+enum LedgerTypography {
+  static let displayAmount = Font.system(.largeTitle, design: .serif, weight: .semibold)
+  static let heroAmount = Font.system(.largeTitle, design: .serif, weight: .bold)
+  static let editorialTitle = Font.system(.largeTitle, design: .serif, weight: .bold)
+  static let screenTitle = Font.system(.title2, design: .serif, weight: .bold)
+  static let sectionTitle = Font.title3.weight(.bold)
+  static let body = Font.body
+  static let bodyStrong = Font.body.weight(.semibold)
+  static let action = Font.headline
+  static let label = Font.subheadline.weight(.semibold)
+  static let caption = Font.caption
+  static let captionStrong = Font.caption.weight(.bold)
+  static let footnote = Font.footnote
+  static let icon = Font.subheadline.weight(.semibold)
+}
+
 struct LedgerBackground: View {
   var showsArtwork = false
 
@@ -45,7 +63,7 @@ struct LedgerBackground: View {
 struct EditorialTitle: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .font(.system(size: 34, weight: .bold, design: .serif))
+      .font(LedgerTypography.editorialTitle)
       .tracking(-0.6)
       .foregroundStyle(LedgerTheme.navy)
   }
@@ -80,7 +98,7 @@ extension View {
 struct PrimaryButton: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .font(.headline)
+      .font(LedgerTypography.action)
       .frame(maxWidth: .infinity, minHeight: 52)
       .background(
         LinearGradient(
@@ -105,7 +123,7 @@ struct LedgerIcon: View {
 
   var body: some View {
     Image(systemName: systemName)
-      .font(.system(size: 15, weight: .semibold))
+      .font(LedgerTypography.icon)
       .foregroundStyle(color)
       .frame(width: 36, height: 36)
       .background(color.opacity(0.12))
@@ -120,12 +138,12 @@ struct LedgerSectionTitle: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
       Text(title)
-        .font(.title3.weight(.bold))
+        .font(LedgerTypography.sectionTitle)
         .foregroundStyle(LedgerTheme.ink)
 
       if let detail {
         Text(detail)
-          .font(.subheadline)
+          .font(LedgerTypography.body)
           .foregroundStyle(.secondary)
       }
     }

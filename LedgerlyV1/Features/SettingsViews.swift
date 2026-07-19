@@ -49,19 +49,41 @@ struct SettingsView: View {
 
               Divider().padding(.leading, 50)
 
-              HStack(spacing: 14) {
-                LedgerIcon(systemName: "globe", color: LedgerTheme.olive)
-                Text(L10n.text(.language))
-                  .font(.body.weight(.medium))
-                Spacer()
-                Picker(L10n.text(.language), selection: $language) {
-                  ForEach(AppLanguage.allCases) { option in
-                    Text(option.title).tag(option.rawValue)
+              Menu {
+                ForEach(AppLanguage.allCases) { option in
+                  Button {
+                    language = option.rawValue
+                  } label: {
+                    if language == option.rawValue {
+                      Label(option.title, systemImage: "checkmark")
+                    } else {
+                      Text(option.title)
+                    }
                   }
                 }
-                .labelsHidden()
-                .accessibilityIdentifier("settings.language")
+              } label: {
+                HStack(spacing: 14) {
+                  LedgerIcon(systemName: "globe", color: LedgerTheme.olive)
+
+                  VStack(alignment: .leading, spacing: 3) {
+                    Text(L10n.text(.language))
+                      .font(.body.weight(.medium))
+                      .foregroundStyle(LedgerTheme.ink)
+                    Text(selectedLanguageTitle)
+                      .font(.caption)
+                      .foregroundStyle(.secondary)
+                  }
+
+                  Spacer()
+
+                  Image(systemName: "chevron.up.chevron.down")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(LedgerTheme.olive)
+                }
+                .contentShape(Rectangle())
+                .padding(.vertical, 5)
               }
+              .accessibilityIdentifier("settings.language")
             }
 
             settingsGroup(title: L10n.text(.dataPrivacy)) {
@@ -133,6 +155,10 @@ struct SettingsView: View {
       VStack(spacing: 0, content: content)
         .ledgerCard(padding: 14)
     }
+  }
+
+  private var selectedLanguageTitle: String {
+    AppLanguage(rawValue: language)?.title ?? L10n.text(.systemDefault)
   }
 }
 

@@ -213,7 +213,7 @@ struct HomeView: View {
       }
 
       Text(money(summary.net, currency: currency, locale: locale))
-        .font(.system(size: 40, weight: .bold, design: .serif))
+        .font(LedgerTypography.heroAmount)
         .foregroundStyle(.white)
         .minimumScaleFactor(0.6)
 
