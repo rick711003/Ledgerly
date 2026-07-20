@@ -37,13 +37,14 @@ done
 app_sources=$(sed -n '/A90000000000000000000001 \/\* Sources \*\//p' "$project" | grep -o 'in Sources' | wc -l | tr -d ' ')
 test "$app_sources" -eq 13 || fail "expected exactly thirteen app source build files (found $app_sources)"
 resource_sources=$(sed -n '/AA0000000000000000000001 \/\* Resources \*/,/End PBXResourcesBuildPhase/p' "$project" | grep -o 'in Resources' | wc -l | tr -d ' ')
-test "$resource_sources" -eq 5 || fail "expected exactly five app resources (found $resource_sources)"
+test "$resource_sources" -eq 3 || fail "expected exactly three app resource groups (found $resource_sources)"
 grep -Fq 'knownRegions = (en, zh-Hant, Base);' "$project" || fail "Traditional Chinese region missing"
 grep -Fq 'ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;' "$project" || fail "AppIcon build setting missing"
 grep -Fq 'IPHONEOS_DEPLOYMENT_TARGET = 17.0;' "$project" || fail "iOS 17 deployment target missing"
+sh "$root/Scripts/check-assets.sh"
 if grep -Eq 'ExcludedArtifacts|LegacyCompetingImplementation|\.\./(Sources|Tests)' "$project" \
   || grep -Eq '\.\./(Sources|Tests)' "$root/Package.swift"; then
   fail "excluded artifacts or root prototype leak into product mappings"
 fi
 
-printf '%s\n' 'source-map check: passed (13 app sources, 2 test sources, 5 resources)'
+printf '%s\n' 'source-map check: passed (13 app sources, 2 test sources, 3 resource groups)'

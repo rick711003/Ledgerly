@@ -21,6 +21,7 @@ Before a build, validate the project mapping from the repository root:
 
 ```sh
 LedgerlyV1/Scripts/check-source-map.sh
+LedgerlyV1/Scripts/check-assets.sh
 LedgerlyV1/Scripts/check-format.sh
 cd LedgerlyV1 && swift test
 ```

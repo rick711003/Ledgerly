@@ -23,8 +23,6 @@
 		A1000000000000000000000E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* Localizable.strings */; };
 		A1000000000000000000000F /* LedgerlyV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* LedgerlyV1Tests.swift */; };
 		A10000000000000000000010 /* LedgerlyV1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* LedgerlyV1UITests.swift */; };
-		A10000000000000000000011 /* Ledgerly-Journal-Background-v1.png in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000019 /* Ledgerly-Journal-Background-v1.png */; };
-		A10000000000000000000012 /* Ledgerly-Launch-Background-v1.png in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001A /* Ledgerly-Launch-Background-v1.png */; };
 		A10000000000000000000013 /* CategorySettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001B /* CategorySettingsViews.swift */; };
 		A10000000000000000000014 /* DataSettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000001C /* DataSettingsViews.swift */; };
 /* End PBXBuildFile section */
@@ -71,8 +69,6 @@
 		A20000000000000000000016 /* LedgerlyV1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LedgerlyV1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20000000000000000000017 /* LedgerlyV1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgerlyV1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20000000000000000000018 /* LedgerlyV1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgerlyV1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A20000000000000000000019 /* Ledgerly-Journal-Background-v1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ledgerly-Journal-Background-v1.png"; sourceTree = "<group>"; };
-		A2000000000000000000001A /* Ledgerly-Launch-Background-v1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ledgerly-Launch-Background-v1.png"; sourceTree = "<group>"; };
 		A2000000000000000000001B /* CategorySettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViews.swift; sourceTree = "<group>"; };
 		A2000000000000000000001C /* DataSettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSettingsViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,11 +115,10 @@
 		A70000000000000000000004 /* Persistence */ = {isa = PBXGroup; children = (A20000000000000000000004 /* LedgerStore.swift */); path = Persistence; sourceTree = "<group>"; };
 		A70000000000000000000005 /* DesignSystem */ = {isa = PBXGroup; children = (A20000000000000000000005 /* Theme.swift */); path = DesignSystem; sourceTree = "<group>"; };
 		A70000000000000000000006 /* Features */ = {isa = PBXGroup; children = (A20000000000000000000006 /* InsightsView.swift */, A20000000000000000000007 /* MainShellView.swift */, A20000000000000000000008 /* OnboardingView.swift */, A20000000000000000000009 /* RootView.swift */, A2000000000000000000000A /* SettingsViews.swift */, A2000000000000000000001B /* CategorySettingsViews.swift */, A2000000000000000000001C /* DataSettingsViews.swift */, A2000000000000000000000B /* TransactionViews.swift */); path = Features; sourceTree = "<group>"; };
-		A70000000000000000000007 /* Resources */ = {isa = PBXGroup; children = (A2000000000000000000000C /* Assets.xcassets */, A7000000000000000000000B /* Branding */, A2000000000000000000000D /* LaunchScreen.storyboard */, A2000000000000000000000E /* Info.plist */, A2000000000000000000000F /* Localizable.strings */); path = Resources; sourceTree = "<group>"; };
+		A70000000000000000000007 /* Resources */ = {isa = PBXGroup; children = (A2000000000000000000000C /* Assets.xcassets */, A2000000000000000000000D /* LaunchScreen.storyboard */, A2000000000000000000000E /* Info.plist */, A2000000000000000000000F /* Localizable.strings */); path = Resources; sourceTree = "<group>"; };
 		A70000000000000000000008 /* LedgerlyV1Tests */ = {isa = PBXGroup; children = (A20000000000000000000012 /* LedgerlyV1Tests.swift */, A20000000000000000000013 /* Info.plist */); path = LedgerlyV1Tests; sourceTree = "<group>"; };
 		A70000000000000000000009 /* LedgerlyV1UITests */ = {isa = PBXGroup; children = (A20000000000000000000014 /* LedgerlyV1UITests.swift */, A20000000000000000000015 /* Info.plist */); path = LedgerlyV1UITests; sourceTree = "<group>"; };
 		A7000000000000000000000A /* Products */ = {isa = PBXGroup; children = (A20000000000000000000016 /* LedgerlyV1.app */, A20000000000000000000017 /* LedgerlyV1Tests.xctest */, A20000000000000000000018 /* LedgerlyV1UITests.xctest */); name = Products; sourceTree = "<group>"; };
-		A7000000000000000000000B /* Branding */ = {isa = PBXGroup; children = (A20000000000000000000019 /* Ledgerly-Journal-Background-v1.png */, A2000000000000000000001A /* Ledgerly-Launch-Background-v1.png */); path = Branding; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,7 +185,7 @@
 		AA0000000000000000000001 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (A1000000000000000000000C /* Assets.xcassets in Resources */, A1000000000000000000000D /* LaunchScreen.storyboard in Resources */, A1000000000000000000000E /* Localizable.strings in Resources */, A10000000000000000000011 /* Ledgerly-Journal-Background-v1.png in Resources */, A10000000000000000000012 /* Ledgerly-Launch-Background-v1.png in Resources */);
+			files = (A1000000000000000000000C /* Assets.xcassets in Resources */, A1000000000000000000000D /* LaunchScreen.storyboard in Resources */, A1000000000000000000000E /* Localizable.strings in Resources */);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
