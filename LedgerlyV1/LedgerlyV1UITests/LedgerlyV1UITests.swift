@@ -54,20 +54,27 @@ final class LedgerlyV1UITests: XCTestCase {
     let app = XCUIApplication()
     launchReadyLedger(app)
 
+    assertSurfaceFitsScreen(app.scrollViews.firstMatch, app: app)
     attachScreenshot(named: "home-redesign", app: app)
 
     app.tabBars.buttons.element(boundBy: 1).tap()
-    XCTAssertTrue(app.otherElements["history.screen"].waitForExistence(timeout: 2))
+    assertSurfaceFitsScreen(app.scrollViews.firstMatch, app: app)
     attachScreenshot(named: "history-redesign", app: app)
 
     app.tabBars.buttons.element(boundBy: 2).tap()
-    XCTAssertTrue(app.staticTexts[L10nTestCopy.insightsTitle].waitForExistence(timeout: 2))
+    assertSurfaceFitsScreen(app.scrollViews.firstMatch, app: app)
     attachScreenshot(named: "insights-redesign", app: app)
 
     app.tabBars.buttons.element(boundBy: 0).tap()
     app.buttons.matching(identifier: "Add transaction").firstMatch.tap()
     XCTAssertTrue(app.otherElements["transaction.editor.screen"].waitForExistence(timeout: 2))
     attachScreenshot(named: "add-transaction-redesign", app: app)
+  }
+
+  private func assertSurfaceFitsScreen(_ surface: XCUIElement, app: XCUIApplication) {
+    XCTAssertTrue(surface.waitForExistence(timeout: 2))
+    XCTAssertGreaterThanOrEqual(surface.frame.minX, app.frame.minX - 1)
+    XCTAssertLessThanOrEqual(surface.frame.maxX, app.frame.maxX + 1)
   }
 
   func testSettingsSurfacesHaveDesignedDestinations() {

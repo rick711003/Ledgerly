@@ -43,11 +43,15 @@ struct LedgerBackground: View {
       )
 
       if showsArtwork {
-        Image("Ledgerly-Journal-Background-v1")
-          .resizable()
-          .scaledToFill()
-          .opacity(0.08)
-          .blendMode(.multiply)
+        GeometryReader { proxy in
+          Image("Ledgerly-Journal-Background-v1")
+            .resizable()
+            .scaledToFill()
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .clipped()
+            .opacity(0.08)
+            .blendMode(.multiply)
+        }
       }
 
       LinearGradient(
