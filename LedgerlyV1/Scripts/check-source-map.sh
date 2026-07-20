@@ -41,7 +41,8 @@ test "$resource_sources" -eq 5 || fail "expected exactly five app resources (fou
 grep -Fq 'knownRegions = (en, zh-Hant, Base);' "$project" || fail "Traditional Chinese region missing"
 grep -Fq 'ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;' "$project" || fail "AppIcon build setting missing"
 grep -Fq 'IPHONEOS_DEPLOYMENT_TARGET = 17.0;' "$project" || fail "iOS 17 deployment target missing"
-if grep -Eq 'ExcludedArtifacts|LegacyCompetingImplementation|\.\./(Sources|Tests)' "$project" "$root/Package.swift"; then
+if grep -Eq 'ExcludedArtifacts|LegacyCompetingImplementation|\.\./(Sources|Tests)' "$project" \
+  || grep -Eq '\.\./(Sources|Tests)' "$root/Package.swift"; then
   fail "excluded artifacts or root prototype leak into product mappings"
 fi
 
