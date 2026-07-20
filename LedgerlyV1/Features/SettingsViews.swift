@@ -221,18 +221,7 @@ struct LedgerSheetHeader: View {
 
   var body: some View {
     HStack(alignment: .top, spacing: 14) {
-      Button {
-        dismiss()
-      } label: {
-        Image(systemName: "xmark")
-          .font(LedgerTypography.icon)
-          .frame(width: 36, height: 36)
-          .background(LedgerTheme.navy.opacity(0.08))
-          .clipShape(Circle())
-          .contentShape(Circle())
-      }
-      .buttonStyle(.plain)
-      .accessibilityLabel(L10n.text(.cancel))
+      LedgerCloseButton { dismiss() }
 
       LedgerIcon(systemName: systemName, color: color)
       VStack(alignment: .leading, spacing: 4) {
@@ -331,7 +320,10 @@ struct CurrencyEditorView: View {
               currency = option.0
             } label: {
               HStack(spacing: 14) {
-                Text(option.1).font(LedgerTypography.sectionTitle)
+                Text(option.1)
+                  .font(LedgerTypography.monetarySymbol)
+                  .lineLimit(1)
+                  .minimumScaleFactor(0.8)
                   .frame(width: 44, height: 44)
                   .background(LedgerTheme.sage.opacity(0.12)).clipShape(Circle())
                 VStack(alignment: .leading, spacing: 2) {

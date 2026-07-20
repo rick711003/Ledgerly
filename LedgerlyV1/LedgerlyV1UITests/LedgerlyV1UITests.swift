@@ -42,12 +42,14 @@ final class LedgerlyV1UITests: XCTestCase {
     }
 
     app.tabBars.buttons.element(boundBy: 1).tap()
-    XCTAssertTrue(app.otherElements["history.screen"].waitForExistence(timeout: 2))
+    XCTAssertTrue(app.scrollViews["history.screen"].waitForExistence(timeout: 2))
 
     app.tabBars.buttons.element(boundBy: 0).tap()
     app.buttons.matching(identifier: "Add transaction").firstMatch.tap()
     XCTAssertTrue(app.otherElements["transaction.editor.screen"].waitForExistence(timeout: 2))
     XCTAssertTrue(app.buttons["transaction.save"].exists)
+    XCTAssertTrue(app.buttons[L10nTestCopy.cancel].exists)
+    XCTAssertFalse(app.staticTexts[L10nTestCopy.cancel].exists)
   }
 
   func testPrimaryProductSurfacesHaveVisualEvidence() {
@@ -254,4 +256,5 @@ final class LedgerlyV1UITests: XCTestCase {
 
 private enum L10nTestCopy {
   static let insightsTitle = "Monthly insights"
+  static let cancel = "Cancel"
 }

@@ -54,8 +54,7 @@ struct TransactionEditorView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
-          Button(L10n.text(.cancel)) { dismiss() }
-            .foregroundStyle(LedgerTheme.navy)
+          LedgerCloseButton { dismiss() }
             .disabled(model.isSaving)
         }
       }

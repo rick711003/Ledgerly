@@ -29,6 +29,7 @@ enum LedgerTypography {
   static let captionStrong = Font.caption.weight(.bold)
   static let footnote = Font.footnote
   static let icon = Font.subheadline.weight(.semibold)
+  static let monetarySymbol = Font.system(.title3, design: .rounded, weight: .semibold)
 }
 
 struct LedgerBackground: View {
@@ -177,11 +178,26 @@ struct LedgerScreenHeader: View {
       Spacer(minLength: 12)
 
       Image(systemName: systemName)
-        .font(.body.weight(.semibold))
-        .foregroundStyle(LedgerTheme.navy)
-        .frame(width: 42, height: 42)
-        .background(LedgerTheme.navy.opacity(0.07))
-        .clipShape(Circle())
+        .font(.title3.weight(.semibold))
+        .foregroundStyle(LedgerTheme.navy.opacity(0.62))
+        .accessibilityHidden(true)
     }
+  }
+}
+
+struct LedgerCloseButton: View {
+  let action: () -> Void
+
+  var body: some View {
+    Button(action: action) {
+      Image(systemName: "xmark")
+        .font(LedgerTypography.icon)
+        .frame(width: 36, height: 36)
+        .background(LedgerTheme.navy.opacity(0.08))
+        .clipShape(Circle())
+        .contentShape(Circle())
+    }
+    .buttonStyle(.plain)
+    .accessibilityLabel(L10n.text(.cancel))
   }
 }
