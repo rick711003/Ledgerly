@@ -28,3 +28,15 @@ fi
 
 count=$(printf '%s\n' "$names" | sed '/^$/d' | wc -l | tr -d ' ')
 printf '%s\n' "asset check: passed ($count named image asset(s))"
+
+for surface_file in \
+  "$root/Features/MainShellView.swift" \
+  "$root/Features/TransactionViews.swift" \
+  "$root/Features/InsightsView.swift"
+do
+  if ! grep -q 'LedgerBackground(showsArtwork: true)' "$surface_file"; then
+    fail "primary surface does not opt into the approved journal artwork: $surface_file"
+  fi
+done
+
+printf '%s\n' "asset check: primary surface artwork coverage passed"

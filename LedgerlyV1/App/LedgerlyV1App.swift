@@ -3,8 +3,25 @@ import UIKit
 
 @main
 struct LedgerlyV1App: App {
-  @StateObject private var model = LedgerViewModel()
+  @StateObject private var model: LedgerViewModel
   @AppStorage("appLanguage") private var language = AppLanguage.system.rawValue
+
+  init() {
+    if ProcessInfo.processInfo.environment["LEDGERLY_UI_TEST_FRESH_STORE"] == "1"
+      || ProcessInfo.processInfo.arguments.contains("--ledgerly-ui-test-fresh-store")
+    {
+      let store = FileLedgerStore(
+        url: FileManager.default.temporaryDirectory.appendingPathComponent(
+          "ledgerly-onboarding-ui-test.json"
+        )
+      )
+      try? store.clear()
+      _model = StateObject(wrappedValue: LedgerViewModel(store: store))
+      return
+    }
+    _model = StateObject(wrappedValue: LedgerViewModel())
+  }
+
   var body: some Scene {
     WindowGroup {
       RootView().environmentObject(model).environment(

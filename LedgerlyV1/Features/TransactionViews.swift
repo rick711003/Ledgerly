@@ -265,7 +265,7 @@ struct HistoryView: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        LedgerBackground()
+        LedgerBackground(showsArtwork: true)
 
         ScrollView {
           VStack(alignment: .leading, spacing: 22) {

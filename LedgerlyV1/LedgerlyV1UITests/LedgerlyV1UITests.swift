@@ -3,10 +3,12 @@ import XCTest
 final class LedgerlyV1UITests: XCTestCase {
   func testOnboardingHasAnAccessibleSetupAction() {
     let app = XCUIApplication()
+    app.launchEnvironment["LEDGERLY_UI_TEST_FRESH_STORE"] = "1"
+    app.launchArguments.append("--ledgerly-ui-test-fresh-store")
     app.launch()
-    XCTAssertTrue(
-      app.buttons["setup.continue"].waitForExistence(timeout: 3)
-        || app.tabBars.buttons.element(boundBy: 0).exists)
+    XCTAssertTrue(app.buttons["setup.continue"].waitForExistence(timeout: 3))
+    XCTAssertFalse(app.tabBars.buttons.element(boundBy: 0).exists)
+    attachScreenshot(named: "onboarding-first-launch", app: app)
   }
 
   func testAccessibilityIdentifiersAreStableWhenLedgerIsReady() {
