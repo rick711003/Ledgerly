@@ -20,6 +20,17 @@ enum AppLanguage: String, CaseIterable, Identifiable {
   }
 }
 
+@MainActor
+final class AppSettings: ObservableObject {
+  @Published var language: String {
+    willSet { UserDefaults.standard.set(newValue, forKey: "appLanguage") }
+  }
+
+  init(defaults: UserDefaults = .standard) {
+    language = defaults.string(forKey: "appLanguage") ?? AppLanguage.system.rawValue
+  }
+}
+
 /// The only presentation-string API. Keep semantic keys here so views never own copy.
 enum L10n {
   enum Key: String {

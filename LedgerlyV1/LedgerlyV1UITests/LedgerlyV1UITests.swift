@@ -33,6 +33,32 @@ final class LedgerlyV1UITests: XCTestCase {
         || app.tabBars.buttons.element(boundBy: 0).exists)
   }
 
+  func testChangingLanguageRefreshesTabBarAndCachedHistoryImmediately() {
+    let app = XCUIApplication()
+    launchReadyLedger(app)
+
+    settingsTab(in: app).tap()
+    XCTAssertTrue(app.otherElements["settings.screen"].waitForExistence(timeout: 2))
+    app.buttons["settings.language"].tap()
+    XCTAssertTrue(app.otherElements["language.screen"].waitForExistence(timeout: 2))
+    app.buttons["language.english"].tap()
+
+    let settingsTab = app.tabBars.buttons["Settings"]
+    XCTAssertTrue(settingsTab.waitForExistence(timeout: 3))
+    settingsTab.tap()
+    XCTAssertTrue(app.otherElements["settings.screen"].waitForExistence(timeout: 2))
+    app.buttons["settings.language"].tap()
+    XCTAssertTrue(app.otherElements["language.screen"].waitForExistence(timeout: 2))
+    app.buttons["language.traditionalChinese"].tap()
+
+    let historyTab = app.tabBars.buttons["紀錄"]
+    XCTAssertTrue(historyTab.waitForExistence(timeout: 3))
+    XCTAssertFalse(app.tabBars.buttons["History"].exists)
+
+    historyTab.tap()
+    XCTAssertTrue(app.staticTexts["紀錄"].waitForExistence(timeout: 2))
+  }
+
   func testReadyLedgerCanOpenHistoryAndTransactionEditor() {
     let app = XCUIApplication()
     app.launch()

@@ -3,7 +3,7 @@ import UIKit
 
 struct SettingsView: View {
   @EnvironmentObject private var model: LedgerViewModel
-  @AppStorage("appLanguage") private var language = AppLanguage.system.rawValue
+  @EnvironmentObject private var settings: AppSettings
   @State private var destination: SettingsDestination?
 
   var body: some View {
@@ -114,7 +114,7 @@ struct SettingsView: View {
         switch destination {
         case .categories: CategoriesView()
         case .currency: CurrencyEditorView()
-        case .language: LanguageSelectionView(language: $language)
+        case .language: LanguageSelectionView(language: $settings.language)
         case .export: ExportView()
         case .privacy: PrivacyView()
         case .clear: ClearDataView()
@@ -125,7 +125,7 @@ struct SettingsView: View {
   }
 
   private var selectedLanguageTitle: String {
-    AppLanguage(rawValue: language)?.title ?? L10n.text(.systemDefault)
+    AppLanguage(rawValue: settings.language)?.title ?? L10n.text(.systemDefault)
   }
 }
 

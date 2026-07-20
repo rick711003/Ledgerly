@@ -4,7 +4,7 @@ import UIKit
 @main
 struct LedgerlyV1App: App {
   @StateObject private var model: LedgerViewModel
-  @AppStorage("appLanguage") private var language = AppLanguage.system.rawValue
+  @StateObject private var settings = AppSettings()
 
   init() {
     if ProcessInfo.processInfo.environment["LEDGERLY_UI_TEST_FRESH_STORE"] == "1"
@@ -24,8 +24,11 @@ struct LedgerlyV1App: App {
 
   var body: some Scene {
     WindowGroup {
-      RootView().environmentObject(model).environment(
-        \.locale, (AppLanguage(rawValue: language) ?? .system).locale)
+      RootView()
+        .environmentObject(model)
+        .environmentObject(settings)
+        .environment(\.locale, (AppLanguage(rawValue: settings.language) ?? .system).locale)
+        .id(settings.language)
     }
   }
 }

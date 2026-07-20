@@ -29,7 +29,7 @@ enum LedgerTypography {
   static let captionStrong = Font.caption.weight(.bold)
   static let footnote = Font.footnote
   static let icon = Font.subheadline.weight(.semibold)
-  static let monetarySymbol = Font.system(.title3, design: .rounded, weight: .semibold)
+  static let monetarySymbol = Font.system(.subheadline, design: .rounded, weight: .semibold)
 }
 
 struct LedgerBackground: View {
